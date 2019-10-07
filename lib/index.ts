@@ -18,12 +18,14 @@ export class OnlyLast<T> {
   
     this.storage.push(meta)
 
-    // TODO: add cleanup old results
+    if (!this.lastResult) {
+      return data
+    }
 
-    return this.lastResult
+    return this.lastResult.data
   }
 
-  private get lastResult(): T | null {
+  private get lastResult(): Meta<T> | null {
     if (this.storage.length === 0) {
       return null;
     }
@@ -35,6 +37,16 @@ export class OnlyLast<T> {
       }
     }
   
-    return head.data
+    return head
+  }
+
+  private cleanup = () => {
+    if (!this.lastResult) {
+      return
+    }
+
+    const { calculatingStartsAt } = this.lastResult
+
+    this.storage = this.storage.filter(item => item.calculatingStartsAt < calculatingStartsAt)
   }
 }
