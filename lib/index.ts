@@ -1,52 +1,55 @@
 interface Meta<T> {
-  calculatingStartsAt: number
-  data: T
+  calculatingStartsAt: number;
+  data: T;
 }
 
 export class OnlyLast<T> {
-  private storage: Array<Meta<T>> = []
+  private storage: Array<Meta<T>> = [];
 
-  execute = async (calculate: () => Promise<T>): Promise<T> => {  
-    const calculatingStartsAt = Date.now()
-  
-    const data = await calculate()
-  
+  execute = async (calculate: () => Promise<T>): Promise<T> => {
+    const calculatingStartsAt = Date.now();
+
+    const data = await calculate();
+
     const meta: Meta<T> = {
       calculatingStartsAt,
       data,
-    }
-  
-    this.storage.push(meta)
+    };
+
+    this.storage.push(meta);
 
     if (!this.lastResult) {
-      return data
+      return data;
     }
 
-    return this.lastResult.data
-  }
+    return this.lastResult.data;
+  };
 
   private get lastResult(): Meta<T> | null {
     if (this.storage.length === 0) {
       return null;
     }
-  
-    let [head, ...rest] = this.storage
+
+    // eslint-disable-next-line prefer-const
+    let [head, ...rest] = this.storage;
     for (const candidate of rest) {
       if (candidate.calculatingStartsAt > head.calculatingStartsAt) {
-        head = candidate
+        head = candidate;
       }
     }
-  
-    return head
+
+    return head;
   }
 
   private cleanup = () => {
     if (!this.lastResult) {
-      return
+      return;
     }
 
-    const { calculatingStartsAt } = this.lastResult
+    const { calculatingStartsAt } = this.lastResult;
 
-    this.storage = this.storage.filter(item => item.calculatingStartsAt < calculatingStartsAt)
-  }
+    this.storage = this.storage.filter(
+      item => item.calculatingStartsAt < calculatingStartsAt,
+    );
+  };
 }
