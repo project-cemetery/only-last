@@ -1,0 +1,41 @@
+{
+  "name": "only-last",
+  "version": "1.0.0",
+  "description": "Small utility to get data only from last promise",
+  "main": "dist/index.js",
+  "author": "Igor Kamsyhev",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "prepare": "yarn build",
+    "ci": "yarn types && yarn test && yarn size && yarn s lint",
+    "size": "yarn build && size-limit",
+    "types": "tsc --noEmit lib",
+    "test": "jest",
+    "s": "yarn soda"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^2.1.6",
+    "@solid-soda/scripts": "^1.14.7",
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn soda lint-staged",
+      "pre-push": "yarn ci",
+      "commit-msg": "yarn soda commitlint"
+    }
+  },
+  "size-limit": [
+    {
+      "limit": "885 B",
+      "path": "dist/index.js"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
