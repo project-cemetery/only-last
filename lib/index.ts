@@ -22,6 +22,8 @@ export class OnlyLast<T> {
       return data;
     }
 
+    this.cleanup()
+
     return this.lastResult.data;
   };
 
