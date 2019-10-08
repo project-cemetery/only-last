@@ -6,10 +6,10 @@
   "author": "Igor Kamsyhev",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "tsc",
     "prepare": "yarn build",
     "ci": "yarn types && yarn test && yarn size && yarn s lint",
-    "size": "yarn build && size-limit",
+    "size": "rimraf dist && yarn build && size-limit",
     "types": "tsc --noEmit lib/index.ts",
     "test": "jest",
     "s": "yarn soda"
