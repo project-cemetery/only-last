@@ -18,16 +18,17 @@ export class OnlyLast<T> {
 
     this.storage.push(meta);
 
-    if (!this.lastResult) {
+    const lastResult = this.getLastResult();
+    if (!lastResult) {
       return data;
     }
 
-    this.cleanup()
+    this.cleanup();
 
-    return this.lastResult.data;
+    return lastResult.data;
   };
 
-  private get lastResult(): Meta<T> | null {
+  private getLastResult(): Meta<T> | null {
     if (this.storage.length === 0) {
       return null;
     }
@@ -44,14 +45,15 @@ export class OnlyLast<T> {
   }
 
   private cleanup = () => {
-    if (!this.lastResult) {
+    const lastResult = this.getLastResult();
+    if (!lastResult) {
       return;
     }
 
-    const { calculatingStartsAt } = this.lastResult;
+    const { calculatingStartsAt } = lastResult;
 
     this.storage = this.storage.filter(
-      item => item.calculatingStartsAt < calculatingStartsAt,
+      item => item.calculatingStartsAt >= calculatingStartsAt,
     );
   };
 }

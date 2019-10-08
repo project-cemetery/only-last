@@ -1,6 +1,6 @@
 # only-last
 
-Tiny (885 bytes), zero dependency helper for race conditions on user input.
+Tiny (less than 1kb), zero dependency helper for race conditions on user input.
 
 ## TL;DR
 
@@ -63,4 +63,4 @@ All race conditions on user input solved, you are beatiful!
 
 ## One more thing
 
-It is really tiny library, only 885 bytes. We use [size-limit](https://github.com/ai/size-limit) to control size.
+It is really tiny library, only 926 bytes. We use [size-limit](https://github.com/ai/size-limit) to control size.
