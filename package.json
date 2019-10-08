@@ -1,15 +1,15 @@
 {
   "name": "only-last",
-  "version": "1.1.2",
+  "version": "1.1.1",
   "description": "Small utility to get data only from last promise",
   "main": "dist/index.js",
   "author": "Igor Kamsyhev",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "rimraf dist && tsc",
     "prepare": "yarn build",
     "ci": "yarn types && yarn test && yarn size && yarn s lint",
-    "size": "rimraf dist && yarn build && size-limit",
+    "size": "yarn build && size-limit",
     "types": "tsc --noEmit lib/index.ts",
     "test": "jest",
     "s": "yarn soda"
