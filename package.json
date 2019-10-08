@@ -1,6 +1,6 @@
 {
   "name": "only-last",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Small utility to get data only from last promise",
   "main": "dist/index.js",
   "author": "Igor Kamsyhev",
